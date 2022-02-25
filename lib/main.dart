@@ -26,32 +26,34 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Notes')),
+      appBar: AppBar(title: const Text('Notes')),
       body: Center(
-        child: BlocBuilder<Bloc, nState>(
+        child: BlocBuilder<NBloc, NState>(
           builder: (context, state) {
             if (state is LoadInProgress) {
-              return CircularProgressIndicator();
+              return const CircularProgressIndicator();
             }
             if (state is LoadSuccess) {
               return ListView.builder(
                 itemCount: state.notes.length,
                 itemBuilder: (context, index) {
-                  final job = state.notes[index];
-                  return ListTile(
-                    key: Key(job.id),
-                    leading: Icon(Icons.location_city),
-                    title: Text(job.title),
-                    trailing: Icon(
-                      job.isFeatured == true ? Icons.star : Icons.star_border,
-                      color: Colors.orangeAccent,
+                  final note = state.notes[index];
+                  return Center(
+                    child: Card(
+                      child: ListTile(
+                        key: Key(note.id),
+                        leading: const Icon(Icons.note),
+                        title: Text(note.subject!),
+                        trailing: Text(note.createdAt),
+                        subtitle: Text(note.note!),
+                      ),
                     ),
-                    subtitle: job.locationNames != null
-                        ? Text(job.locationNames!)
-                        : null,
                   );
                 },
               );
+            }
+            if (state is LoadFailure) {
+              return Text("Load Data Failure $state");
             }
             return const Text('Oops something went wrong!');
           },

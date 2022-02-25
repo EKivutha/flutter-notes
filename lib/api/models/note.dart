@@ -6,17 +6,17 @@ part 'note.g.dart';
 class Note {
   const Note({
     required this.id,
-    required this.title,
-    this.locationNames,
-    this.isFeatured = false,
+    required this.createdAt,
+    this.subject,
+    this.note,
   });
 
   factory Note.fromJson(Map<String, dynamic> json) => _$NoteFromJson(json);
 
   final String id;
-  final String title;
+  final String createdAt;
   @JsonKey(includeIfNull: true)
-  final String? locationNames;
-  @JsonKey(defaultValue: false)
-  final bool isFeatured;
+  final String? subject;
+  @JsonKey(includeIfNull: true)
+  final String? note;
 }

@@ -9,8 +9,8 @@ part of 'note.dart';
 Note _$NoteFromJson(Map<String, dynamic> json) {
   return Note(
     id: json['id'] as String,
-    title: json['title'] as String,
-    locationNames: json['locationNames'] as String?,
-    isFeatured: json['isFeatured'] as bool? ?? false,
+    createdAt: json['createdAt'] as String,
+    subject: json['subject'] as String?,
+    note: json['note'] as String?,
   );
 }

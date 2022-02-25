@@ -8,7 +8,7 @@ import '../api/models/note.dart';
 part 'event.dart';
 part 'state.dart';
 
-class NBloc extends Bloc<Event, nState> {
+class NBloc extends Bloc<Event, NState> {
   NBloc({required ApiClient nApiClient})
       : _nApiClient = nApiClient,
         super(LoadInProgress()) {
@@ -19,12 +19,12 @@ class NBloc extends Bloc<Event, nState> {
 
   void _onFetchStarted(
     FetchStarted event,
-    Emitter<State> emit,
+    Emitter<NState> emit,
   ) async {
     emit(LoadInProgress());
     try {
-      final jobs = await _nApiClient.getJobs();
-      emit(LoadSuccess(jobs));
+      final notes = await _nApiClient.get();
+      emit(LoadSuccess(notes));
     } catch (_) {
       emit(LoadFailure());
     }

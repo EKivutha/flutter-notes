@@ -1,14 +1,14 @@
 part of 'bloc.dart';
 
 @immutable
-abstract class nState {}
+abstract class NState {}
 
-class LoadInProgress extends nState {}
+class LoadInProgress extends NState {}
 
-class LoadSuccess extends nState {
+class LoadSuccess extends NState {
   LoadSuccess(this.notes);
 
   final List<Note> notes;
 }
 
-class LoadFailure extends nState {}
+class LoadFailure extends NState {}

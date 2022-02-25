@@ -1,5 +1,5 @@
 const get = r'''
-query Get(){
+query {
     id,
     createdAt,
     subject,

@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:notes_app_frog/api/api.dart';
-import 'package:notes_app_frog/api/queries/queries.dart' as queries;
 import 'package:graphql/client.dart';
 import 'package:http/http.dart' as http;
 
@@ -21,7 +20,7 @@ class ApiClient {
 
   final GraphQLClient _graphQLClient;
 
-  Future<List<Note>> get() async {
+  static Future<List<Note>> get(String query) async {
     var url = 'https://6218858d1a1ba20cbaa33263.mockapi.io/notes/';
     http.Response response = await http.get(
       Uri.parse(url),
@@ -29,7 +28,12 @@ class ApiClient {
     // print(response.body);
     final data = json.decode(response.body) as List;
     // print(data);
-    return data.map((e) => Note.fromJson(e)).toList();
+    return data.map((e) => Note.fromJson(e)).where((note) {
+      final nameLower = note.subject?.toLowerCase();
+      final queryLower = query.toLowerCase();
+
+      return nameLower!.contains(queryLower);
+    }).toList();
 
     // final result = await _graphQLClient.query(
     //   QueryOptions(document: gql(queries.get)),

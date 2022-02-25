@@ -8,7 +8,7 @@ class LoadInProgress extends NState {}
 class LoadSuccess extends NState {
   LoadSuccess(this.notes);
 
-  final List<dynamic> notes;
+  final List<Note> notes;
 }
 
 class LoadFailure extends NState {}

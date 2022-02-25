@@ -23,7 +23,7 @@ class NBloc extends Bloc<Event, NState> {
   ) async {
     emit(LoadInProgress());
     try {
-      final notes = await ApiClient.get as List;
+      final notes = await _nApiClient.get();
       emit(LoadSuccess(notes));
     } catch (_) {
       emit(LoadFailure());

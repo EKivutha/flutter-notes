@@ -27,7 +27,7 @@ class SearchPage extends StatelessWidget {
             //     hintText: 'Search Username',
             //   ),
             // ),
-            suggestionsCallback: ApiClient.get,
+            suggestionsCallback: ApiClient.search,
             itemBuilder: (context, Note? suggestion) {
               final note = suggestion!;
 

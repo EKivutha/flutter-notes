@@ -20,7 +20,25 @@ class ApiClient {
 
   final GraphQLClient _graphQLClient;
 
-  static Future<List<Note>> get(String query) async {
+  Future<List<Note>> get() async {
+    var url = 'https://6218858d1a1ba20cbaa33263.mockapi.io/notes/';
+    http.Response response = await http.get(
+      Uri.parse(url),
+    );
+    // print(response.body);
+    final data = json.decode(response.body) as List;
+    // print(data);
+    return data.map((e) => Note.fromJson(e)).toList();
+
+    // final result = await _graphQLClient.query(
+    //   QueryOptions(document: gql(queries.get)),
+    // );
+    // if (result.hasException) throw GetRequestFailure();
+    // final data = result.data?[''] as List;
+    // return data.map((e) => Note.fromJson(e)).toList();
+  }
+
+  static Future<List<Note>> search(String query) async {
     var url = 'https://6218858d1a1ba20cbaa33263.mockapi.io/notes/';
     http.Response response = await http.get(
       Uri.parse(url),

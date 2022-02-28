@@ -18,17 +18,22 @@ class MyApp extends StatelessWidget {
     return ValueListenableBuilder<ThemeMode>(
         valueListenable: themeNotifier,
         builder: (_, ThemeMode currentMode, __) {
-          return MaterialApp(
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (_) => NBloc(
+                  nApiClient: nApiClient,
+                )..add(FetchStarted()),
+              ),
+            ],
+            child: MaterialApp(
               debugShowCheckedModeBanner: false,
               theme: ThemeData(primarySwatch: Colors.amber),
               darkTheme: ThemeData.dark(),
               themeMode: currentMode,
-              home: BlocProvider(
-                create: (_) => NBloc(
-                  nApiClient: nApiClient,
-                )..add(FetchStarted()),
-                child: const HomePage(),
-              ));
+              home: const HomePage(),
+            ),
+          );
         });
   }
 }

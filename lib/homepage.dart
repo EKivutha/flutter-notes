@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notes_app_frog/details_page.dart';
 import 'package:notes_app_frog/main.dart';
 import 'package:notes_app_frog/main/bloc.dart';
 import 'package:notes_app_frog/searchpage.dart';
@@ -51,7 +52,17 @@ class HomePage extends StatelessWidget {
                         leading: const Icon(Icons.note),
                         title: Text(note.subject!),
                         selectedTileColor: Colors.blueAccent,
-                        // trailing: Text(note.createdAt),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.more),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => DetailsPage(id: note.id),
+                              ),
+                            );
+                          },
+                        ), //Icon(Icons.more),
                         subtitle: Text(note.note!),
                       ),
                     ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:notes_app_frog/api/api.dart';
+import 'package:notes_app_frog/details_page.dart';
 
 import 'api/models/note.dart';
 
@@ -46,12 +47,17 @@ class SearchPage extends StatelessWidget {
             ),
             onSuggestionSelected: (Note? suggestion) {
               final note = suggestion!;
-
-              ScaffoldMessenger.of(context)
-                ..removeCurrentSnackBar()
-                ..showSnackBar(SnackBar(
-                  content: Text('Selected user: ${note.note}'),
-                ));
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DetailsPage(id: note.id),
+                ),
+              );
+              // ScaffoldMessenger.of(context)
+              //   ..removeCurrentSnackBar()
+              //   ..showSnackBar(SnackBar(
+              //     content: Text('Selected user: ${note.note}'),
+              //   ));
             },
           ),
         ),
